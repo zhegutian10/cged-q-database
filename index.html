@@ -69,31 +69,35 @@
             height: 120%;
             background: url('back.jpg') no-repeat;
             background-size: cover;
-            animation: parallaxScroll 60s ease-in-out infinite;
+            animation: parallaxScroll 30s ease-in-out infinite;
             z-index: 0;
             will-change: transform;
         }
 
         @keyframes parallaxScroll {
             0% {
-                transform: translate(0, 0) scale(1.1);
+                transform: translateY(0) scale(1.2);
             }
             50% {
-                transform: translate(-8%, -8%) scale(1.15);
+                transform: translateY(-10%) scale(1.25);
             }
             100% {
-                transform: translate(0, 0) scale(1.1);
+                transform: translateY(0) scale(1.2);
             }
         }
 
-        /* 遮罩层 */
+        /* 遮罩层 - 添加光线投射效果 */
         .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.4);
+            background: linear-gradient(135deg,
+                rgba(0,0,0,0.7) 0%,
+                rgba(0,0,0,0.5) 30%,
+                rgba(0,0,0,0.3) 60%,
+                rgba(0,0,0,0.1) 100%);
             z-index: 1;
         }
 
@@ -109,14 +113,36 @@
             justify-content: center;
         }
 
-        .logo {
+        /* 导航栏样式 */
+        .navbar {
             position: absolute;
-            top: 30px;
-            left: 40px;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
             display: flex;
             align-items: center;
             gap: 15px;
-            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo-icon {
@@ -136,6 +162,65 @@
             color: white;
             font-size: 18px;
             letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #c8102e;
+            border-bottom-color: #c8102e;
+        }
+
+        .nav-link.active {
+            color: #c8102e;
+            border-bottom-color: #c8102e;
+        }
+
+        /* 用户中心图标 */
+        .user-center {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-icon:hover {
+            background: rgba(200,16,46,0.2);
+            border-color: #c8102e;
+            transform: scale(1.1);
+        }
+
+        .user-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
         }
 
         .hero-title {
@@ -222,17 +307,205 @@
 
         /* 内容区域 */
         .content-wrapper {
-            background: #f5f5f5;
+            background: #f5f5f5 url('bg2.png') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
             padding: 0;
         }
 
-        /* 内容页顶部搜索区 - 重新设计 */
-        .content-header {
+        /* 内容页顶部导航栏 */
+        .content-navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
             background: white;
-            padding: 25px 20px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             border-bottom: 1px solid #e9ecef;
+            z-index: 100;
+        }
+
+        /* 官员页面导航栏 - 三栏布局 */
+        .content-navbar.official-navbar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+        }
+
+        .content-navbar .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .content-navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .content-navbar .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .content-navbar .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #c8102e;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .content-navbar .logo-text {
+            color: #333;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .content-navbar .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .content-navbar .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 15px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .content-navbar .nav-link:hover {
+            color: #c8102e;
+            border-bottom-color: #c8102e;
+        }
+
+        .content-navbar .nav-link.active {
+            color: #c8102e;
+            border-bottom-color: #c8102e;
+        }
+
+        .content-navbar .navbar-center {
+            display: flex;
+            gap: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-navbar .navbar-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .content-navbar .user-center {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* 导航栏内搜索框 */
+        .navbar-search {
+            display: flex;
+            gap: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-search-input {
+            width: 300px;
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .navbar-search-input:focus {
+            border-color: #c8102e;
+            box-shadow: 0 0 0 2px rgba(200,16,46,0.1);
+        }
+
+        .navbar-search-button {
+            padding: 8px 20px;
+            background: #c8102e;
+            color: white;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .navbar-search-button:hover {
+            background: #a00d24;
+        }
+
+        .navbar-search-button.secondary {
+            background: #666;
+        }
+
+        .navbar-search-button.secondary:hover {
+            background: #555;
+        }
+
+        .content-navbar .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(200,16,46,0.1);
+            border: 2px solid rgba(200,16,46,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .content-navbar .user-icon:hover {
+            background: rgba(200,16,46,0.2);
+            border-color: #c8102e;
+            transform: scale(1.1);
+        }
+
+        .content-navbar .user-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #c8102e;
+        }
+
+        /* 官员页面搜索区域 */
+        .official-search-area {
+            background: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .official-search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .content-search-box {
@@ -381,6 +654,64 @@
             margin-bottom: 25px;
             letter-spacing: 3px;
             font-weight: 500;
+        }
+
+        .info-card p {
+            line-height: 2;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .info-card ul {
+            line-height: 2;
+            color: #666;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+
+        /* 数据来源标签 */
+        .data-source-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .source-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #666;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+            color: #f5f5f5;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .source-tab.active {
+            color: white;
+            background: #c8102e;
+            border-bottom-color: #c8102e;
+            font-weight: bold;
+        }
+
+        .source-tab:hover {
+            color: white;
+            background: #888;
+        }
+
+        .source-content {
+            display: none;
+        }
+
+        .source-content.active {
+            display: block;
         }
 
         .info-grid {
@@ -551,6 +882,33 @@
             .tabs {
                 flex-direction: column;
             }
+
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-left {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .nav-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 13px;
+            }
+
+            .user-center {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -563,11 +921,28 @@
         <!-- 遮罩层 -->
         <div class="hero-overlay"></div>
         
-        <!-- Logo - 独立于内容层 -->
-        <div class="logo">
-            <div class="logo-icon">清</div>
-            <div class="logo-text">CGED-Q</div>
-        </div>
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="navbar-left">
+                <div class="logo" onclick="backToHome()">
+                    <div class="logo-icon">清</div>
+                    <div class="logo-text">CGED-Q</div>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link active" onclick="showHome(event)">首页</a>
+                    <a href="#" class="nav-link" onclick="showTeam(event)">团队介绍及致谢</a>
+                    <a href="#" class="nav-link" onclick="showReferences(event)">文献参考</a>
+                    <a href="#" class="nav-link" onclick="showContact(event)">联系我们</a>
+                </div>
+            </div>
+            <div class="user-center">
+                <div class="user-icon" title="个人中心">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+        </nav>
         
         <!-- 内容层 -->
         <div class="hero-content">
@@ -599,13 +974,36 @@
 
     <!-- 官员列表页 -->
     <div id="officialListPage" class="content-wrapper" style="display: none;">
-        <div class="content-header">
-            <div class="content-search-box">
-                <input type="text" id="searchInput2" class="content-search-input" placeholder="请输入官员姓名、官职或籍贯...">
-                <button onclick="searchOfficialFromContent()" class="content-search-button">搜索</button>
-                <button onclick="backToHome()" class="content-search-button secondary">返回首页</button>
+        <nav class="content-navbar official-navbar">
+            <div class="navbar-left">
+                <div class="logo" onclick="backToHome()">
+                    <div class="logo-icon">清</div>
+                    <div class="logo-text">CGED-Q</div>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link" onclick="showHome(event)">首页</a>
+                    <a href="#" class="nav-link" onclick="showTeam(event)">团队介绍及致谢</a>
+                    <a href="#" class="nav-link" onclick="showReferences(event)">文献参考</a>
+                    <a href="#" class="nav-link" onclick="showContact(event)">联系我们</a>
+                </div>
             </div>
-        </div>
+            <div class="navbar-center">
+                <div class="navbar-search">
+                    <input type="text" id="searchInput2" class="navbar-search-input" placeholder="请输入官员姓名、官职或籍贯...">
+                    <button onclick="searchOfficialFromContent()" class="navbar-search-button">搜索</button>
+                    <button onclick="backToHome()" class="navbar-search-button secondary">返回</button>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <div class="user-center">
+                    <div class="user-icon" title="个人中心">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <div class="content-body">
             <div class="container">
                 <div class="page-header">
@@ -620,20 +1018,68 @@
 
     <!-- 官员详情页 -->
     <div id="officialDetailPage" class="content-wrapper" style="display: none;">
-        <div class="content-header">
-            <div class="content-search-box">
-                <input type="text" id="searchInput3" class="content-search-input" placeholder="请输入官员姓名、官职或籍贯...">
-                <button onclick="searchOfficialFromContent()" class="content-search-button">搜索</button>
-                <button onclick="goBack()" class="content-search-button secondary">返回</button>
+        <nav class="content-navbar official-navbar">
+            <div class="navbar-left">
+                <div class="logo" onclick="backToHome()">
+                    <div class="logo-icon">清</div>
+                    <div class="logo-text">CGED-Q</div>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link" onclick="showHome(event)">首页</a>
+                    <a href="#" class="nav-link" onclick="showTeam(event)">团队介绍及致谢</a>
+                    <a href="#" class="nav-link" onclick="showReferences(event)">文献参考</a>
+                    <a href="#" class="nav-link" onclick="showContact(event)">联系我们</a>
+                </div>
             </div>
-        </div>
+            <div class="navbar-center">
+                <div class="navbar-search">
+                    <input type="text" id="searchInput3" class="navbar-search-input" placeholder="请输入官员姓名、官职或籍贯...">
+                    <button onclick="searchOfficialFromContent()" class="navbar-search-button">搜索</button>
+                    <button onclick="goBack()" class="navbar-search-button secondary">返回</button>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <div class="user-center">
+                    <div class="user-icon" title="个人中心">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <div class="content-body">
             <div class="container">
-                <!-- 基本信息 -->
-            <div class="info-card">
-                <h2>基本信息</h2>
-                <div class="info-grid" id="basicInfo"></div>
-            </div>
+                <!-- 数据来源选择 -->
+                <div class="data-source-tabs">
+                    <button class="source-tab active" onclick="switchSource('jinshen')">缙绅录</button>
+                    <button class="source-tab" onclick="switchSource('tongnian')">同年齿录</button>
+                    <button class="source-tab" onclick="switchSource('beiyang')">北洋政府职员录</button>
+                </div>
+
+                <!-- 基本信息 - 缙绅录 -->
+                <div id="jinshen-content" class="source-content active">
+                    <div class="info-card">
+                        <h2>基本信息 - 缙绅录</h2>
+                        <div class="info-grid" id="basicInfo"></div>
+                    </div>
+                </div>
+
+                <!-- 基本信息 - 同年齿录 -->
+                <div id="tongnian-content" class="source-content">
+                    <div class="info-card">
+                        <h2>基本信息 - 同年齿录</h2>
+                        <div class="info-grid" id="tongNianInfo"></div>
+                    </div>
+                </div>
+
+                <!-- 基本信息 - 北洋政府职员录 -->
+                <div id="beiyang-content" class="source-content">
+                    <div class="info-card">
+                        <h2>基本信息 - 北洋政府职员录集成</h2>
+                        <div class="info-grid" id="beiYangInfo"></div>
+                    </div>
+                </div>
 
             <!-- 可视化分析 -->
             <div class="info-card">
@@ -682,6 +1128,147 @@
                     </div>
                     <div class="chart-container" id="networkChart"></div>
                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 团队介绍页 -->
+    <div id="teamPage" class="content-wrapper" style="display: none;">
+        <nav class="content-navbar">
+            <div class="navbar-left">
+                <div class="logo" onclick="backToHome()">
+                    <div class="logo-icon">清</div>
+                    <div class="logo-text">CGED-Q</div>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link" onclick="showHome(event)">首页</a>
+                    <a href="#" class="nav-link active" onclick="showTeam(event)">团队介绍及致谢</a>
+                    <a href="#" class="nav-link" onclick="showReferences(event)">文献参考</a>
+                    <a href="#" class="nav-link" onclick="showContact(event)">联系我们</a>
+                </div>
+            </div>
+            <div class="user-center">
+                <div class="user-icon" title="个人中心">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+        <div class="content-body">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">团队介绍及致谢</h1>
+                    <p class="page-subtitle">CGED 项目团队</p>
+                </div>
+                
+                <div class="info-card">
+                    <h2>李康研究团队</h2>
+                    <p>李康研究团队是由香港科技大学李中清、康文林教授领导的研究团队。团队从1980年代开始构建量化数据库，并进行相关的量化历史研究，主要包括中国多代人口量化数据库、中国大学生量化数据库、中国四清阶级成分数据库，清代缙绅录量化数据库等。</p>
+                </div>
+
+                <div class="info-card">
+                    <h2>中国历史官员量化数据库 (CGED)</h2>
+                    <p>《中国历史官员-清代 (CGED-Q) 量化数据库（清代）》以清华大学图书馆出版的《清代缙绅录集成》为基础，同时以哈佛燕京图书馆、哥伦比亚大学图书馆、上海图书馆等所藏《缙绅录》版本作为补充。《缙绅录》是开列官职和在任官员的详细名单，从清代中后期开始按季出版，有大量版本存世。《中国历史官员-北洋 (CGED-BY) 量化数据库（北洋）》以清华图书馆出版的《北洋政府职员录集成》为基础。</p>
+                    <p>关于清代官员数据详细的信息，包括相关中文文件和材料，请访问该项目网页。关于北洋政府官员的数据，请访问该项目网页。1760-1798, 1850-1864, 1900-1912时段文缙绅的完整数据现已提供完整下载。</p>
+                </div>
+
+                <div class="info-card">
+                    <h2>中国历史官员量化数据库 (CGED) 人名检索系统</h2>
+                    <p>中国历史官员量化数据库 (CGED) 人名检索系统终将涵盖清代及北洋政府官员的名单及其相关个人信息，您可通过姓名进行检索。我们诚挚邀请您提供更多相关人物的信息，所有数据涉及个人隐私，将不会公开，仅作研究团队学术研究用途。</p>
+                </div>
+
+                <div class="info-card">
+                    <h2>经费支持致谢</h2>
+                    <p>中国历史官员量化数据库 (CGED) 的录入和数据公开受到香港研究资助局（The Research Grants Council）基金项目的支持("Spatial, Temporal, and Social Network Influences on Officials' Careers during the Qing: Creation and Analysis of a National Database from the Jin Shen Lu", HK RGC GRF 16400114, PI: Cameron Campbell)。</p>
+                    <p>Hong Kong Research Grants Council Areas of Excellence AoE/B-704/22-R. Quantitative History of China: Historical Roots of Recent Success and Future Development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文献参考页 -->
+    <div id="referencesPage" class="content-wrapper" style="display: none;">
+        <nav class="content-navbar">
+            <div class="navbar-left">
+                <div class="logo" onclick="backToHome()">
+                    <div class="logo-icon">清</div>
+                    <div class="logo-text">CGED-Q</div>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link" onclick="showHome(event)">首页</a>
+                    <a href="#" class="nav-link" onclick="showTeam(event)">团队介绍及致谢</a>
+                    <a href="#" class="nav-link active" onclick="showReferences(event)">文献参考</a>
+                    <a href="#" class="nav-link" onclick="showContact(event)">联系我们</a>
+                </div>
+            </div>
+            <div class="user-center">
+                <div class="user-icon" title="个人中心">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+        <div class="content-body">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">文献参考</h1>
+                    <p class="page-subtitle">相关研究文献与资料</p>
+                </div>
+                <div class="info-card">
+                    <h2>主要参考文献</h2>
+                    <ul style="line-height: 2; color: #666; font-size: 16px; margin-left: 20px;">
+                        <li>任玉雪等. 2016. 清代缙绅录量化数据库与官员群体研究[J]. 清史研究. 11(4): 61-77.</li>
+                        <li>Chen Bijia, Cameron Campbell, Yuxue Ren, and James Lee. 2020. Big Data for the Study of Qing Officialdom: The China Government Employee Database-Qing (CGED-Q). The Journal of Chinese History. 4(Special Issue 2):431-460.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 联系我们页 -->
+    <div id="contactPage" class="content-wrapper" style="display: none;">
+        <nav class="content-navbar">
+            <div class="navbar-left">
+                <div class="logo" onclick="backToHome()">
+                    <div class="logo-icon">清</div>
+                    <div class="logo-text">CGED-Q</div>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link" onclick="showHome(event)">首页</a>
+                    <a href="#" class="nav-link" onclick="showTeam(event)">团队介绍及致谢</a>
+                    <a href="#" class="nav-link" onclick="showReferences(event)">文献参考</a>
+                    <a href="#" class="nav-link active" onclick="showContact(event)">联系我们</a>
+                </div>
+            </div>
+            <div class="user-center">
+                <div class="user-icon" title="个人中心">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+        <div class="content-body">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">联系我们</h1>
+                    <p class="page-subtitle">欢迎与我们交流</p>
+                </div>
+                <div class="info-card">
+                    <h2>联系方式</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">电子邮件</div>
+                            <div class="info-value">contact@cged-q.org</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">项目网站</div>
+                            <div class="info-value">www.cged-q.org</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -874,12 +1461,65 @@
             }).join('');
         }
 
-        // 返回首页
-        function backToHome() {
+        // 导航功能
+        function showHome(event) {
+            if (event) event.preventDefault();
+            updateNavActive(event);
             currentPage = 'hero';
             document.getElementById('heroSection').style.display = 'flex';
             document.getElementById('officialListPage').style.display = 'none';
             document.getElementById('officialDetailPage').style.display = 'none';
+            document.getElementById('teamPage').style.display = 'none';
+            document.getElementById('referencesPage').style.display = 'none';
+            document.getElementById('contactPage').style.display = 'none';
+        }
+
+        function showTeam(event) {
+            if (event) event.preventDefault();
+            updateNavActive(event);
+            currentPage = 'team';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('officialListPage').style.display = 'none';
+            document.getElementById('officialDetailPage').style.display = 'none';
+            document.getElementById('teamPage').style.display = 'block';
+            document.getElementById('referencesPage').style.display = 'none';
+            document.getElementById('contactPage').style.display = 'none';
+        }
+
+        function showReferences(event) {
+            if (event) event.preventDefault();
+            updateNavActive(event);
+            currentPage = 'references';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('officialListPage').style.display = 'none';
+            document.getElementById('officialDetailPage').style.display = 'none';
+            document.getElementById('teamPage').style.display = 'none';
+            document.getElementById('referencesPage').style.display = 'block';
+            document.getElementById('contactPage').style.display = 'none';
+        }
+
+        function showContact(event) {
+            if (event) event.preventDefault();
+            updateNavActive(event);
+            currentPage = 'contact';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('officialListPage').style.display = 'none';
+            document.getElementById('officialDetailPage').style.display = 'none';
+            document.getElementById('teamPage').style.display = 'none';
+            document.getElementById('referencesPage').style.display = 'none';
+            document.getElementById('contactPage').style.display = 'block';
+        }
+
+        function updateNavActive(event) {
+            if (event && event.target) {
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                event.target.classList.add('active');
+            }
+        }
+
+        // 返回首页
+        function backToHome() {
+            showHome(null);
             document.getElementById('searchInput').value = '';
         }
 
@@ -923,6 +1563,7 @@
 
         // 显示基本信息
         function showBasicInfo(official) {
+            // 缙绅录信息
             const basicInfo = document.getElementById('basicInfo');
             const fields = [
                 { label: '姓名', value: (official['姓'] || '') + (official['名'] || '') },
@@ -945,7 +1586,62 @@
                     <div class="info-value">${field.value}</div>
                 </div>
             `).join('');
+
+            // 同年齿录信息（虚拟演示数据）
+            const tongNianInfo = document.getElementById('tongNianInfo');
+            const provinces = ['直隶', '江苏', '浙江', '山东', '河南', '山西', '陕西', '甘肃', '福建', '广东'];
+            const counties = ['大兴', '宛平', '吴县', '钱塘', '历城', '开封', '太原', '西安', '福州', '广州'];
+            const examTypes = ['进士', '举人', '贡生', '监生'];
+            const sources = ['《同年齿录》卷一', '《同年齿录》卷二', '《同年齿录》卷三', '《同年齿录》卷四'];
+            
+            const tongNianFields = [
+                { label: '考试年份（公历）', value: official['阳历年份'] || '1760' },
+                { label: '姓', value: official['姓'] || '李' },
+                { label: '名', value: official['名'] || '某' },
+                { label: '籍贯省', value: official['籍贯省'] || provinces[Math.floor(Math.random() * provinces.length)] },
+                { label: '籍贯县', value: official['籍贯县'] || counties[Math.floor(Math.random() * counties.length)] },
+                { label: '科别', value: examTypes[Math.floor(Math.random() * examTypes.length)] },
+                { label: '中式年龄', value: (20 + Math.floor(Math.random() * 30)) + '岁' },
+                { label: '考试省', value: provinces[Math.floor(Math.random() * provinces.length)] },
+                { label: '文献来源', value: sources[Math.floor(Math.random() * sources.length)] }
+            ];
+
+            tongNianInfo.innerHTML = tongNianFields.map(field => `
+                <div class="info-item">
+                    <div class="info-label">${field.label}</div>
+                    <div class="info-value">${field.value}</div>
+                </div>
+            `).join('');
+
+            // 北洋政府职员录信息（虚拟演示数据）
+            const beiYangInfo = document.getElementById('beiYangInfo');
+            const beiYangFields = [
+                { label: '姓', value: official['姓'] || '李' },
+                { label: '名', value: official['名'] || '某' },
+                { label: '籍贯省', value: official['籍贯省'] || provinces[Math.floor(Math.random() * provinces.length)] },
+                { label: '籍贯县', value: official['籍贯县'] || counties[Math.floor(Math.random() * counties.length)] },
+                { label: '年份', value: (1912 + Math.floor(Math.random() * 16)) + '年' }
+            ];
+
+            beiYangInfo.innerHTML = beiYangFields.map(field => `
+                <div class="info-item">
+                    <div class="info-label">${field.label}</div>
+                    <div class="info-value">${field.value}</div>
+                </div>
+            `).join('');
         }
+
+        // 切换数据来源
+        function switchSource(source) {
+            // 更新标签状态
+            document.querySelectorAll('.source-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 更新内容显示
+            document.querySelectorAll('.source-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(source + '-content').classList.add('active');
+        }
+
 
         // 绘制仕途时间线
         function drawTimeline(records) {
