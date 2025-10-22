@@ -7,37 +7,42 @@
     <title>清代官员信息可视化系统 - CGED-Q</title>
     <script src="lib/echarts.min.js"></script> 
     <script src="lib/papaparse.min.js"></script>
-    <script>
-        // 注册中国地图数据
-        let chinaMapLoaded = false;
+ <script>
+    // 注册中国地图数据 - 使用jsDelivr CDN
+    let chinaMapLoaded = false;
+    
+    async function loadChinaMap() {
+        const mapSources = [
+            // jsDelivr CDN（支持HTTPS）
+            'https://cdn.jsdelivr.net/npm/echarts@5.4.3/map/json/china.json',
+            // 备用源
+            'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
+        ];
         
-        // 尝试从多个源加载地图数据
-        async function loadChinaMap() {
-            const mapSources = [
-                'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json',
-                'https://geo.datav.aliyun.com/areas_v2/bound/100000_full.json'
-            ];
-            
-            for (const url of mapSources) {
-                try {
-                    console.log('尝试加载地图数据:', url);
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`HTTP错误! 状态: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    echarts.registerMap('china', data);
-                    chinaMapLoaded = true;
-                    console.log('✅ 地图数据加载成功');
-                    return true;
-                } catch (err) {
-                    console.warn(`从 ${url} 加载失败:`, err.message);
+        for (const url of mapSources) {
+            try {
+                console.log('尝试加载地图数据:', url);
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
                 }
+                const data = await response.json();
+                echarts.registerMap('china', data);
+                chinaMapLoaded = true;
+                console.log('✅ 地图数据加载成功');
+                return true;
+            } catch (err) {
+                console.warn(`从 ${url} 加载失败:`, err.message);
             }
-            
-            console.error('❌ 所有地图数据源加载失败');
-            return false;
         }
+        
+        console.error('❌ 所有地图数据源加载失败');
+        return false;
+    }
+    
+    // 页面加载时加载地图
+    loadChinaMap();
+</script>
         
         // 页面加载时尝试加载地图
         loadChinaMap();
